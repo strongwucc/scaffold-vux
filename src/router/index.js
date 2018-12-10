@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Home = r => require.ensure([], () => r(require('@/page/home')), 'home')//首页
+const Home = r => require.ensure([], () => r(require('@/page/home')), 'home') // 首页
 
 
 Vue.use(Router)
