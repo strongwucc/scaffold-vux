@@ -32,6 +32,18 @@ Vue.prototype.$passiveSupported = passiveSupported
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', function () {
     FastClick.attach(document.body)
+    let u = navigator.userAgent
+    let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+    FastClick.prototype.focus = function (targetElement) {
+      let length
+      if (isiOS && targetElement.setSelectionRange && targetElement.type.indexOf('date') !== 0 && targetElement.type !== 'time' && targetElement.type !== 'month') {
+        length = targetElement.value.length
+        targetElement.focus()
+        targetElement.setSelectionRange(length, length)
+      } else {
+        targetElement.focus()
+      }
+    }
   }, passiveSupported ? { passive: true } : false)
 }
 
